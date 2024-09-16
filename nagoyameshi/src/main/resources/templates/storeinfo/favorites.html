@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>お気に入り一覧</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>お気に入り一覧</h1>
+        <table class="table table-striped">
+            <head>
+                <tr>
+                    <th>店舗名</th>
+                    <th>リスト名</th>
+                    <th>追加日時</th>
+                    <th>お気に入り解除</th>
+                </tr>
+            </head>
+            <body>
+                <tr th:each="favorite : ${favorites}">
+                    <td th:text="${favorite.storeId}">店舗名</td>
+                    <td th:text="${favorite.list}">リスト名</td>
+                    <td th:text="${favorite.createdAt}">追加日時</td>
+                    <td>
+                        <form th:action="@{/favorites/{id}(id=${favorite.id})}" method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                        </form>
+                    </td>
+                </tr>
+            </body>
+        </table>
+    </div>
+</body>
+</html>
